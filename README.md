@@ -4,7 +4,7 @@
 
 ## 👋 Introduction
 
-Welcome to the Fake News Detection project as part of the IBM AI Course AI101 for Naanmudhalvan. This project aims to develop a fake news detection system using Natural Language Processing (NLP) techniques. The goal is to build a model that can distinguish between fake and real news articles.
+Welcome to the Fake News Detection project — a project I built myself, Abhinav. This project aims to develop a fake news detection system using Natural Language Processing (NLP) techniques. The goal is to build a model that can distinguish between fake and real news articles.
 
 The dataset used for this project can be found on Kaggle: [Fake and Real News Dataset](https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset). It contains a collection of news articles labeled as either "fake" or "real," making it suitable for training and evaluating machine learning models.
 
@@ -133,7 +133,7 @@ To run this project on your local machine, follow these steps:
 1. Clone this repository:
 
 ```
-git clone https://github.com/vijaisuria/Fake-News-Detective.git
+git clone https://github.com/buildwithabhinav-ai/fake-news-extension.git
 ```
 
 2. Install the necessary dependencies:
@@ -164,12 +164,12 @@ Contributions to this project are welcome! If you'd like to contribute, please f
 
 ## 🙏 Acknowledgments
 
-We would like to express our gratitude to Kaggle for providing the dataset used in this project.
+I would like to express my gratitude to Kaggle for providing the dataset used in this project.
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-Happy coding! 🎉 If you have any questions or need assistance, please feel free to reach out to us.
+Happy coding! 🎉 If you have any questions or need assistance, please feel free to reach out.
 
-Project maintained by Vijai Suria.
+Project made and maintained by Abhinav.
