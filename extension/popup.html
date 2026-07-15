@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Fake News Detective</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header class="fnd-header">
+    <img class="fnd-logo" src="icons/icon48.png" alt="" width="20" height="20" />
+    <div>
+      <h1>Fake News Detective</h1>
+      <p class="fnd-subtitle">Style analyzer, not a fact-checker</p>
+    </div>
+  </header>
+
+  <p class="fnd-disclaimer" id="disclaimer">
+    This tool flags stylistic manipulation patterns, not factual accuracy. A low
+    score does not mean an article is true, and a high score does not mean it
+    is false.
+  </p>
+
+  <div class="fnd-banner fnd-banner-warning" id="stubBanner" hidden>
+    Backend is running with a stub model (no trained artifacts found) — scores
+    are illustrative only.
+  </div>
+
+  <div class="fnd-banner fnd-banner-critical" id="errorBanner" hidden></div>
+
+  <button class="fnd-btn fnd-btn-primary" id="analyzeBtn">Analyze this page</button>
+
+  <div class="fnd-loading" id="loading" hidden>
+    <span class="fnd-spinner" aria-hidden="true"></span> Analyzing…
+  </div>
+
+  <section class="fnd-results" id="results" hidden>
+    <div class="fnd-meter-block">
+      <div class="fnd-meter-row">
+        <span class="fnd-meter-label">Manipulation score</span>
+        <span class="fnd-meter-value"><span id="scoreValue">0</span>/100</span>
+      </div>
+      <div class="fnd-meter-track" role="img" id="meterTrack" aria-label="Manipulation score meter">
+        <div class="fnd-meter-fill" id="meterFill"></div>
+      </div>
+      <div class="fnd-meter-status">
+        <span class="fnd-status-dot" id="statusDot"></span>
+        <span id="statusWord">—</span>
+      </div>
+    </div>
+
+    <div class="fnd-classifier-row">
+      Classifier opinion: <strong id="labelValue">—</strong>
+      <span class="fnd-muted">(confidence <span id="confidenceValue">—</span>)</span>
+    </div>
+
+    <h2 class="fnd-section-title">Signals</h2>
+    <ul class="fnd-signals" id="signalsList"></ul>
+
+    <div class="fnd-actions">
+      <button class="fnd-btn fnd-btn-secondary" id="highlightBtn">Highlight patterns on page</button>
+      <button class="fnd-btn fnd-btn-ghost" id="clearBtn" hidden>Clear highlights</button>
+    </div>
+    <div class="fnd-legend">
+      <span><i class="fnd-swatch fnd-swatch-fake"></i> sensationalist / shouty</span>
+      <span><i class="fnd-swatch fnd-swatch-real"></i> sourcing language</span>
+    </div>
+  </section>
+
+  <script src="popup.js"></script>
+</body>
+</html>

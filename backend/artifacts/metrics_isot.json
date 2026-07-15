@@ -1,0 +1,148 @@
+{
+  "cv_5fold": {
+    "original": {
+      "accuracy": 0.9855,
+      "precision_fake": 0.9898,
+      "recall_fake": 0.9779,
+      "f1_fake": 0.9838,
+      "confusion_matrix": [
+        [
+          17012,
+          384
+        ],
+        [
+          176,
+          21019
+        ]
+      ]
+    },
+    "cleaned": {
+      "accuracy": 0.9736,
+      "precision_fake": 0.9784,
+      "recall_fake": 0.9626,
+      "f1_fake": 0.9704,
+      "confusion_matrix": [
+        [
+          16745,
+          651
+        ],
+        [
+          369,
+          20826
+        ]
+      ]
+    }
+  },
+  "cross_domain": {
+    "original A->B": {
+      "accuracy": 0.9396,
+      "precision_fake": 0.9257,
+      "recall_fake": 0.955,
+      "f1_fake": 0.9401
+    },
+    "original B->A": {
+      "accuracy": 0.6789,
+      "precision_fake": 0.5622,
+      "recall_fake": 0.9172,
+      "f1_fake": 0.6971
+    },
+    "cleaned A->B": {
+      "accuracy": 0.9165,
+      "precision_fake": 0.892,
+      "recall_fake": 0.9463,
+      "f1_fake": 0.9183
+    },
+    "cleaned B->A": {
+      "accuracy": 0.6575,
+      "precision_fake": 0.5445,
+      "recall_fake": 0.9151,
+      "f1_fake": 0.6828
+    }
+  },
+  "leakage_probe": {
+    "full": [
+      [
+        "reuters",
+        0.9936
+      ],
+      [
+        "via",
+        0.7865
+      ],
+      [
+        "image",
+        0.7692
+      ],
+      [
+        "featured",
+        0.7542
+      ],
+      [
+        "you",
+        0.7321
+      ],
+      [
+        "video",
+        0.7269
+      ],
+      [
+        "just",
+        0.7092
+      ],
+      [
+        "said",
+        0.7086
+      ],
+      [
+        "here",
+        0.6747
+      ],
+      [
+        "like",
+        0.6728
+      ]
+    ],
+    "clean": [
+      [
+        "you",
+        0.7319
+      ],
+      [
+        "video",
+        0.72
+      ],
+      [
+        "just",
+        0.7091
+      ],
+      [
+        "said",
+        0.7086
+      ],
+      [
+        "here",
+        0.6747
+      ],
+      [
+        "like",
+        0.6727
+      ],
+      [
+        "what",
+        0.6605
+      ],
+      [
+        "so",
+        0.6584
+      ],
+      [
+        "even",
+        0.6522
+      ],
+      [
+        "know",
+        0.6422
+      ]
+    ]
+  }
+}

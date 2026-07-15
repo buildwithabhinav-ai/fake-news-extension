@@ -1,0 +1,148 @@
+{
+  "cv_5fold": {
+    "original": {
+      "accuracy": 0.9304,
+      "precision_fake": 0.9345,
+      "recall_fake": 0.9338,
+      "f1_fake": 0.9341,
+      "confusion_matrix": [
+        [
+          26022,
+          1846
+        ],
+        [
+          1825,
+          23029
+        ]
+      ]
+    },
+    "cleaned": {
+      "accuracy": 0.8959,
+      "precision_fake": 0.8986,
+      "recall_fake": 0.9053,
+      "f1_fake": 0.9019,
+      "confusion_matrix": [
+        [
+          25228,
+          2640
+        ],
+        [
+          2848,
+          22006
+        ]
+      ]
+    }
+  },
+  "cross_domain": {
+    "original A->B": {
+      "accuracy": 0.5076,
+      "precision_fake": 0.5743,
+      "recall_fake": 0.5085,
+      "f1_fake": 0.5394
+    },
+    "original B->A": {
+      "accuracy": 0.6276,
+      "precision_fake": 0.1949,
+      "recall_fake": 0.1747,
+      "f1_fake": 0.1843
+    },
+    "cleaned A->B": {
+      "accuracy": 0.5233,
+      "precision_fake": 0.6579,
+      "recall_fake": 0.3317,
+      "f1_fake": 0.4411
+    },
+    "cleaned B->A": {
+      "accuracy": 0.545,
+      "precision_fake": 0.1913,
+      "recall_fake": 0.2758,
+      "f1_fake": 0.2259
+    }
+  },
+  "leakage_probe": {
+    "full": [
+      [
+        "by",
+        0.6831
+      ],
+      [
+        "this",
+        0.6678
+      ],
+      [
+        "that",
+        0.6438
+      ],
+      [
+        "with",
+        0.6345
+      ],
+      [
+        "is",
+        0.6296
+      ],
+      [
+        "as",
+        0.6269
+      ],
+      [
+        "newsbreak",
+        0.6175
+      ],
+      [
+        "in",
+        0.6163
+      ],
+      [
+        "you",
+        0.6161
+      ],
+      [
+        "or",
+        0.6145
+      ]
+    ],
+    "clean": [
+      [
+        "by",
+        0.6821
+      ],
+      [
+        "this",
+        0.6675
+      ],
+      [
+        "that",
+        0.6437
+      ],
+      [
+        "with",
+        0.6343
+      ],
+      [
+        "is",
+        0.6292
+      ],
+      [
+        "as",
+        0.6265
+      ],
+      [
+        "newsbreak",
+        0.6175
+      ],
+      [
+        "you",
+        0.616
+      ],
+      [
+        "or",
+        0.6143
+      ],
+      [
+        "on",
+        0.6138
+      ]
+    ]
+  }
+}

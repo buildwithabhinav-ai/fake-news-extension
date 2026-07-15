@@ -1,0 +1,338 @@
+:root {
+  --fnd-surface: #fcfcfb;
+  --fnd-page: #f9f9f7;
+  --fnd-text: #0b0b0b;
+  --fnd-text-secondary: #52514e;
+  --fnd-text-muted: #898781;
+  --fnd-hairline: #e1e0d9;
+  --fnd-border: rgba(11, 11, 11, 0.1);
+  --fnd-accent: #2a78d6;
+
+  --fnd-good: #0ca30c;
+  --fnd-warning: #fab219;
+  --fnd-serious: #ec835a;
+  --fnd-critical: #d03b3b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fnd-surface: #1a1a19;
+    --fnd-page: #0d0d0d;
+    --fnd-text: #ffffff;
+    --fnd-text-secondary: #c3c2b7;
+    --fnd-text-muted: #898781;
+    --fnd-hairline: #2c2c2a;
+    --fnd-border: rgba(255, 255, 255, 0.1);
+    --fnd-accent: #3987e5;
+
+    --fnd-good: #0ca30c;
+    --fnd-warning: #fab219;
+    --fnd-serious: #ec835a;
+    --fnd-critical: #d03b3b;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Class rules below set `display` on these same elements, which otherwise
+   beats the UA stylesheet's unmarked `[hidden] { display: none }` in the
+   cascade and leaves them stuck visible. Restore hidden as the winner. */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  width: 360px;
+  max-height: 560px;
+  overflow-y: auto;
+  background: var(--fnd-page);
+  color: var(--fnd-text);
+  font: 13px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: 14px;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+.fnd-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.fnd-header h1 {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.fnd-subtitle {
+  font-size: 11px;
+  color: var(--fnd-text-muted);
+}
+
+.fnd-disclaimer {
+  font-size: 11px;
+  color: var(--fnd-text-secondary);
+  background: var(--fnd-surface);
+  border: 1px solid var(--fnd-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+}
+
+.fnd-banner {
+  font-size: 11.5px;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.fnd-banner-warning {
+  background: color-mix(in srgb, var(--fnd-warning) 16%, var(--fnd-surface));
+  color: var(--fnd-text);
+  border: 1px solid color-mix(in srgb, var(--fnd-warning) 45%, transparent);
+}
+
+.fnd-banner-critical {
+  background: color-mix(in srgb, var(--fnd-critical) 14%, var(--fnd-surface));
+  color: var(--fnd-text);
+  border: 1px solid color-mix(in srgb, var(--fnd-critical) 45%, transparent);
+}
+
+.fnd-btn {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fnd-btn-primary {
+  background: var(--fnd-accent);
+  color: #ffffff;
+}
+
+.fnd-btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.fnd-btn-secondary {
+  background: var(--fnd-surface);
+  color: var(--fnd-text);
+  border: 1px solid var(--fnd-border);
+}
+
+.fnd-btn-ghost {
+  background: transparent;
+  color: var(--fnd-text-secondary);
+  border: 1px solid var(--fnd-hairline);
+  margin-top: 6px;
+}
+
+.fnd-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.fnd-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--fnd-text-secondary);
+  font-size: 12px;
+  padding: 10px 2px;
+}
+
+.fnd-spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--fnd-hairline);
+  border-top-color: var(--fnd-accent);
+  animation: fnd-spin 0.7s linear infinite;
+}
+
+@keyframes fnd-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fnd-results {
+  margin-top: 8px;
+}
+
+.fnd-meter-block {
+  background: var(--fnd-surface);
+  border: 1px solid var(--fnd-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.fnd-meter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.fnd-meter-label {
+  font-size: 11.5px;
+  color: var(--fnd-text-secondary);
+}
+
+.fnd-meter-value {
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.fnd-meter-track {
+  position: relative;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--fnd-hairline);
+  overflow: hidden;
+}
+
+.fnd-meter-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  background: var(--fnd-good);
+  transition: width 0.25s ease, background-color 0.25s ease;
+}
+
+.fnd-meter-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.fnd-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--fnd-good);
+  flex: none;
+}
+
+.fnd-classifier-row {
+  font-size: 12px;
+  color: var(--fnd-text-secondary);
+  margin-bottom: 10px;
+}
+
+.fnd-muted {
+  color: var(--fnd-text-muted);
+}
+
+.fnd-section-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--fnd-text-muted);
+  margin: 4px 0 6px;
+}
+
+.fnd-signals {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fnd-signal {
+  display: flex;
+  gap: 8px;
+  padding: 8px 9px;
+  border-radius: 8px;
+  background: var(--fnd-surface);
+  border: 1px solid var(--fnd-border);
+}
+
+.fnd-signal-icon {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--fnd-accent);
+  margin-top: 6px;
+}
+
+.fnd-signal-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.fnd-signal-name {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.fnd-signal-value {
+  font-weight: 500;
+  font-size: 10.5px;
+  color: var(--fnd-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.fnd-signal-explanation {
+  font-size: 11.5px;
+  color: var(--fnd-text-secondary);
+}
+
+.fnd-actions {
+  margin-top: 4px;
+}
+
+.fnd-legend {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+  font-size: 10.5px;
+  color: var(--fnd-text-muted);
+}
+
+.fnd-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.fnd-swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.fnd-swatch-fake {
+  background: var(--fnd-warning);
+}
+
+.fnd-swatch-real {
+  background: var(--fnd-good);
+}
