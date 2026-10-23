@@ -112,12 +112,12 @@ if (!window.__fndContentLoaded) {
         -webkit-box-decoration-break: clone;
       }
       mark.${HL_CLASS}[data-fnd-dir="fake"] {
-        background: color-mix(in srgb, #fab219 calc(var(--fnd-w, 0.6) * 100%), transparent);
-        border-bottom: 2px solid #c98500;
+        background: color-mix(in srgb, #f0eb20 calc(var(--fnd-w, 0.6) * 100%), transparent);
+        border-bottom: 2px solid #b8b300;
       }
       mark.${HL_CLASS}[data-fnd-dir="real"] {
-        background: color-mix(in srgb, #0ca30c calc(var(--fnd-w, 0.6) * 100%), transparent);
-        border-bottom: 2px solid #006300;
+        background: color-mix(in srgb, #7c7be8 calc(var(--fnd-w, 0.6) * 100%), transparent);
+        border-bottom: 2px solid #3c3bbb;
       }
     `;
     document.head.appendChild(style);

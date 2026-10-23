@@ -6,65 +6,129 @@
   <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-  <header class="fnd-header">
-    <img class="fnd-logo" src="icons/icon48.png" alt="" width="20" height="20" />
-    <div>
-      <h1>Fake News Detective</h1>
-      <p class="fnd-subtitle">Style analyzer, not a fact-checker</p>
-    </div>
-  </header>
+  <div class="fnd-app">
+    <header class="fnd-header">
+      <span class="fnd-logo-badge">
+        <img src="icons/icon48.png" alt="" width="22" height="22" />
+      </span>
+      <div class="fnd-header-text">
+        <h1>Fake News Detective</h1>
+        <p class="fnd-subtitle">Style analyzer &middot; not a fact-checker</p>
+      </div>
+      <span class="fnd-status-pill" id="apiPill" data-state="unknown">
+        <i class="fnd-pill-dot"></i><span id="apiPillText">checking</span>
+      </span>
+    </header>
 
-  <p class="fnd-disclaimer" id="disclaimer">
-    This tool flags stylistic manipulation patterns, not factual accuracy. A low
-    score does not mean an article is true, and a high score does not mean it
-    is false.
-  </p>
+    <main class="fnd-body">
+      <div class="fnd-banner fnd-banner-warning" id="stubBanner" hidden>
+        <span class="fnd-banner-icon">!</span>
+        <span>Backend is running a <b>stub model</b> — scores are illustrative only.</span>
+      </div>
 
-  <div class="fnd-banner fnd-banner-warning" id="stubBanner" hidden>
-    Backend is running with a stub model (no trained artifacts found) — scores
-    are illustrative only.
+      <div class="fnd-banner fnd-banner-critical" id="errorBanner" hidden>
+        <span class="fnd-banner-icon">&times;</span>
+        <span id="errorText"></span>
+      </div>
+
+      <!-- Idle / first-run state -->
+      <section class="fnd-empty" id="empty">
+        <div class="fnd-empty-art" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="64" height="64">
+            <defs>
+              <linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="var(--fnd-accent)" />
+                <stop offset="100%" stop-color="var(--fnd-accent-2)" />
+              </linearGradient>
+            </defs>
+            <path d="M32 5 55 13v18c0 14-9.6 24.4-23 28C18.6 55.4 9 45 9 31V13z"
+                  fill="url(#shieldGrad)" opacity="0.16" />
+            <path d="M32 5 55 13v18c0 14-9.6 24.4-23 28C18.6 55.4 9 45 9 31V13z"
+                  fill="none" stroke="url(#shieldGrad)" stroke-width="2.2" stroke-linejoin="round" />
+            <circle cx="29" cy="29" r="8.5" fill="none" stroke="url(#shieldGrad)" stroke-width="2.6" />
+            <line x1="35.5" y1="35.5" x2="43" y2="43" stroke="url(#shieldGrad)"
+                  stroke-width="2.8" stroke-linecap="round" />
+          </svg>
+        </div>
+        <p class="fnd-empty-title">Ready when you are</p>
+        <p class="fnd-empty-hint">
+          Open a news article, then run the analysis to see how much
+          manipulative <em>style</em> it uses.
+        </p>
+      </section>
+
+      <!-- Loading skeleton -->
+      <section class="fnd-skeleton" id="loading" hidden aria-label="Analyzing">
+        <div class="fnd-skel fnd-skel-gauge"></div>
+        <div class="fnd-skel fnd-skel-line" style="width: 70%"></div>
+        <div class="fnd-skel fnd-skel-row"></div>
+        <div class="fnd-skel fnd-skel-row"></div>
+        <p class="fnd-skel-caption">Reading the page and scoring its style…</p>
+      </section>
+
+      <!-- Results -->
+      <section class="fnd-results" id="results" hidden>
+        <div class="fnd-gauge-card">
+          <div class="fnd-gauge" id="gauge">
+            <svg viewBox="0 0 120 120" width="118" height="118" aria-hidden="true">
+              <circle class="fnd-gauge-track" cx="60" cy="60" r="52" />
+              <circle class="fnd-gauge-fill" id="gaugeFill" cx="60" cy="60" r="52" />
+            </svg>
+            <div class="fnd-gauge-center">
+              <span class="fnd-gauge-score" id="scoreValue">0</span>
+              <span class="fnd-gauge-unit">/100</span>
+            </div>
+          </div>
+          <div class="fnd-gauge-side">
+            <span class="fnd-gauge-caption">Manipulation score</span>
+            <span class="fnd-band" id="bandChip"><i class="fnd-band-dot"></i><span id="statusWord">—</span></span>
+            <p class="fnd-gauge-note" id="bandNote">—</p>
+          </div>
+        </div>
+
+        <div class="fnd-verdict">
+          <div class="fnd-verdict-head">
+            <span class="fnd-verdict-label">Classifier opinion</span>
+            <span class="fnd-chip" id="labelChip">—</span>
+          </div>
+          <div class="fnd-conf-row">
+            <span class="fnd-conf-text">confidence</span>
+            <span class="fnd-conf-track"><span class="fnd-conf-fill" id="confFill"></span></span>
+            <span class="fnd-conf-value" id="confidenceValue">—</span>
+          </div>
+        </div>
+
+        <div class="fnd-section-head">
+          <h2 class="fnd-section-title">Signals</h2>
+          <span class="fnd-flag-count" id="flagCount">—</span>
+        </div>
+        <ul class="fnd-signals" id="signalsList"></ul>
+        <button class="fnd-toggle-clean" id="toggleClean" hidden></button>
+
+        <div class="fnd-actions">
+          <button class="fnd-btn fnd-btn-secondary" id="highlightBtn">
+            <span class="fnd-btn-ico">◍</span> Highlight patterns on page
+          </button>
+          <button class="fnd-btn fnd-btn-ghost" id="clearBtn" hidden>Clear highlights</button>
+        </div>
+
+        <div class="fnd-legend">
+          <span><i class="fnd-swatch fnd-swatch-fake"></i> sensationalist / shouty</span>
+          <span><i class="fnd-swatch fnd-swatch-real"></i> sourcing language</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="fnd-footer">
+      <button class="fnd-btn fnd-btn-primary" id="analyzeBtn">
+        <span class="fnd-btn-ico">⚡</span> <span id="analyzeLabel">Analyze this page</span>
+      </button>
+      <p class="fnd-disclaimer">
+        Flags stylistic manipulation patterns, not factual accuracy. A low score
+        doesn't mean true; a high score doesn't mean false.
+      </p>
+    </footer>
   </div>
-
-  <div class="fnd-banner fnd-banner-critical" id="errorBanner" hidden></div>
-
-  <button class="fnd-btn fnd-btn-primary" id="analyzeBtn">Analyze this page</button>
-
-  <div class="fnd-loading" id="loading" hidden>
-    <span class="fnd-spinner" aria-hidden="true"></span> Analyzing…
-  </div>
-
-  <section class="fnd-results" id="results" hidden>
-    <div class="fnd-meter-block">
-      <div class="fnd-meter-row">
-        <span class="fnd-meter-label">Manipulation score</span>
-        <span class="fnd-meter-value"><span id="scoreValue">0</span>/100</span>
-      </div>
-      <div class="fnd-meter-track" role="img" id="meterTrack" aria-label="Manipulation score meter">
-        <div class="fnd-meter-fill" id="meterFill"></div>
-      </div>
-      <div class="fnd-meter-status">
-        <span class="fnd-status-dot" id="statusDot"></span>
-        <span id="statusWord">—</span>
-      </div>
-    </div>
-
-    <div class="fnd-classifier-row">
-      Classifier opinion: <strong id="labelValue">—</strong>
-      <span class="fnd-muted">(confidence <span id="confidenceValue">—</span>)</span>
-    </div>
-
-    <h2 class="fnd-section-title">Signals</h2>
-    <ul class="fnd-signals" id="signalsList"></ul>
-
-    <div class="fnd-actions">
-      <button class="fnd-btn fnd-btn-secondary" id="highlightBtn">Highlight patterns on page</button>
-      <button class="fnd-btn fnd-btn-ghost" id="clearBtn" hidden>Clear highlights</button>
-    </div>
-    <div class="fnd-legend">
-      <span><i class="fnd-swatch fnd-swatch-fake"></i> sensationalist / shouty</span>
-      <span><i class="fnd-swatch fnd-swatch-real"></i> sourcing language</span>
-    </div>
-  </section>
 
   <script src="popup.js"></script>
 </body>
