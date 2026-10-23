@@ -15,3 +15,6 @@ venv/
 
 # Local run script logs
 .run-logs/
+
+# Datasets are third-party corpora: download them from their sources (see README), do not commit them
+dataset/*.csv
