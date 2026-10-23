@@ -26,11 +26,17 @@ from signals import compute_signals, style_score
 app = FastAPI(title="Fake News Detective API", version="1.0.0")
 
 # CORS: the popup fetches from a chrome-extension:// origin, which varies by
-# install, so allow the scheme by regex. localhost is handy for curl/tests.
+# install, so allow the scheme by regex. localhost is handy for curl/tests, and
+# :8080 is where `run` serves the landing page, whose "try it" box posts here.
 app.add_middleware(
     CORSMiddleware,
     allow_origin_regex=r"chrome-extension://.*",
-    allow_origins=["http://localhost:8000", "http://127.0.0.1:8000"],
+    allow_origins=[
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+        "http://localhost:8080",
+        "http://127.0.0.1:8080",
+    ],
     allow_methods=["POST", "GET"],
     allow_headers=["*"],
 )
@@ -45,6 +51,8 @@ class SignalOut(BaseModel):
     name: str
     value: float
     explanation: str
+    triggered: bool
+    weight: float  # share of the style half of the score this signal can add
 
 
 class SpanOut(BaseModel):

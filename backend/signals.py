@@ -58,10 +58,13 @@ class Signal:
     weight: float  # contribution to manipulation score when triggered
 
     def to_api(self) -> dict:
-        """Shape returned to the extension (drop internal fields)."""
+        """Shape returned to the extension.
+
+        `triggered` and `weight` are exposed so the popup can colour a signal
+        by whether it actually fired and show how much of the manipulation
+        score it is responsible for — the score stays fully itemized in the UI.
+        """
         d = asdict(self)
-        d.pop("triggered")
-        d.pop("weight")
         d["value"] = round(d["value"], 3)
         return d
 
